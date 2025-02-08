@@ -19,3 +19,26 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Footer CSS */
+footer {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto; /* Footer'ı sayfanın en altına itmek için */
+}

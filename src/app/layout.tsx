@@ -9,7 +9,6 @@ import Footer from "@/components/Footer";
 import "./globals.css"; // CSS dosyanı ekle
 import { metadata } from "@/app/metadata";
 
-
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="tr">
