@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ChangeEvent } from 'react';
-import { Grid, Typography, Pagination, Select, MenuItem, FormControl, InputLabel, TextField, SelectChangeEvent } from '@mui/material';
+import { Grid, Typography, Pagination, Box, SelectChangeEvent, Card, CardContent, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 import ProductCard from '@/components/ProductCard';
 import { products } from './products';
 import { filterProducts } from './filter';
@@ -64,108 +64,121 @@ const ProductsPage = () => {
   const paginatedProducts = filteredProducts.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   return (
-    <div id="root">
-      <main className="p-8">
-        <Typography variant="h3" component="h1" gutterBottom>
-          Ürünlerimiz
-        </Typography>
-        <FormControl variant="outlined" style={{ minWidth: 200, marginBottom: '20px' }}>
-          <InputLabel>Stok Durumu</InputLabel>
-          <Select value={filter} onChange={handleChangeFilter} label="Stok Durumu">
-            <MenuItem value="Hepsi">Hepsi</MenuItem>
-            <MenuItem value="Mevcut">Mevcut</MenuItem>
-            <MenuItem value="Bitti">Bitti</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" style={{ minWidth: 200, marginBottom: '20px' }}>
-          <InputLabel>Ürün Türü</InputLabel>
-          <Select value={productType} onChange={handleChangeProductType} label="Ürün Türü">
-            <MenuItem value="Hepsi">Hepsi</MenuItem>
-            <MenuItem value="Çaydanlık">Çaydanlık</MenuItem>
-            <MenuItem value="Tabak">Tabak</MenuItem>
-            <MenuItem value="Şişe">Şişe</MenuItem>
-            <MenuItem value="Tencere">Tencere</MenuItem>
-            <MenuItem value="Bardak">Bardak</MenuItem>
-            <MenuItem value="Kupa">Kupa</MenuItem>
-            <MenuItem value="Set">Set</MenuItem>
-            <MenuItem value="Makine">Makine</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" style={{ minWidth: 200, marginBottom: '20px' }}>
-          <InputLabel>Marka</InputLabel>
-          <Select value={brand} onChange={handleChangeBrand} label="Marka">
-            <MenuItem value="Hepsi">Hepsi</MenuItem>
-            <MenuItem value="BrandA">BrandA</MenuItem>
-            <MenuItem value="BrandB">BrandB</MenuItem>
-            <MenuItem value="BrandC">BrandC</MenuItem>
-            {/* Diğer markalar... */}
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" style={{ minWidth: 200, marginBottom: '20px' }}>
-          <InputLabel>Renk</InputLabel>
-          <Select value={color} onChange={handleChangeColor} label="Renk">
-            <MenuItem value="Hepsi">Hepsi</MenuItem>
-            <MenuItem value="Beyaz">Beyaz</MenuItem>
-            <MenuItem value="Mavi">Mavi</MenuItem>
-            <MenuItem value="Şeffaf">Şeffaf</MenuItem>
-            {/* Diğer renkler... */}
-          </Select>
-        </FormControl>
-        <TextField
-          label="Ürün Adı"
-          variant="outlined"
-          value={productName}
-          onChange={handleChangeProductName}
-          style={{ marginBottom: '20px' }}
-        />
-        <Typography gutterBottom>Fiyat Aralığı</Typography>
-        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-          <TextField
-            label="Min Fiyat"
-            variant="outlined"
-            type="number"
-            value={priceRange[0]}
-            onChange={(event) => handleChangePriceRange(event, 0)}
-          />
-          <TextField
-            label="Max Fiyat"
-            variant="outlined"
-            type="number"
-            value={priceRange[1]}
-            onChange={(event) => handleChangePriceRange(event, 1)}
-          />
-        </div>
-        <FormControl variant="outlined" style={{ minWidth: 200, marginBottom: '20px' }}>
-          <InputLabel>Sırala</InputLabel>
-          <Select value={sortBy} onChange={handleChangeSortBy} label="Sırala">
-            <MenuItem value="alphabetical">Alfabetik</MenuItem>
-            <MenuItem value="price">Fiyat</MenuItem>
-            <MenuItem value="discount">İndirim Oranı</MenuItem>
-          </Select>
-        </FormControl>
-        <Grid container spacing={4}>
-          {paginatedProducts.map(product => (
-            <Grid item key={product.id} xs={12} sm={6} md={4}>
-              <ProductCard
-                name={product.name}
-                price={product.price}
-                stock={product.stock}
-                image={product.image}
-                description={product.description}
-                discount={product.discount}
+    <Box id="root" sx={{ padding: '16px' }}>
+      <Typography variant="h3" component="h1" gutterBottom>
+        Ürünlerimiz
+      </Typography>
+      <Box sx={{ display: 'flex', gap: '16px' }}>
+        <Card sx={{ flex: '1 1 20%', position: 'sticky', top: '20px', alignSelf: 'flex-start' }}>
+          <CardContent>
+            <FormControl variant="outlined" sx={{ minWidth: 200, marginBottom: '20px' }}>
+              <InputLabel>Stok Durumu</InputLabel>
+              <Select value={filter} onChange={handleChangeFilter} label="Stok Durumu">
+                <MenuItem value="Hepsi">Hepsi</MenuItem>
+                <MenuItem value="Mevcut">Mevcut</MenuItem>
+                <MenuItem value="Bitti">Bitti</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" sx={{ minWidth: 200, marginBottom: '20px' }}>
+              <InputLabel>Ürün Türü</InputLabel>
+              <Select value={productType} onChange={handleChangeProductType} label="Ürün Türü">
+                <MenuItem value="Hepsi">Hepsi</MenuItem>
+                <MenuItem value="Çaydanlık">Çaydanlık</MenuItem>
+                <MenuItem value="Tabak">Tabak</MenuItem>
+                <MenuItem value="Şişe">Şişe</MenuItem>
+                <MenuItem value="Tencere">Tencere</MenuItem>
+                <MenuItem value="Bardak">Bardak</MenuItem>
+                <MenuItem value="Kupa">Kupa</MenuItem>
+                <MenuItem value="Set">Set</MenuItem>
+                <MenuItem value="Makine">Makine</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" sx={{ minWidth: 200, marginBottom: '20px' }}>
+              <InputLabel>Marka</InputLabel>
+              <Select value={brand} onChange={handleChangeBrand} label="Marka">
+                <MenuItem value="Hepsi">Hepsi</MenuItem>
+                <MenuItem value="BrandA">BrandA</MenuItem>
+                <MenuItem value="BrandB">BrandB</MenuItem>
+                <MenuItem value="BrandC">BrandC</MenuItem>
+                {/* Diğer markalar... */}
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" sx={{ minWidth: 200, marginBottom: '20px' }}>
+              <InputLabel>Renk</InputLabel>
+              <Select value={color} onChange={handleChangeColor} label="Renk">
+                <MenuItem value="Hepsi">Hepsi</MenuItem>
+                <MenuItem value="Beyaz">Beyaz</MenuItem>
+                <MenuItem value="Mavi">Mavi</MenuItem>
+                <MenuItem value="Şeffaf">Şeffaf</MenuItem>
+                {/* Diğer renkler... */}
+              </Select>
+            </FormControl>
+            <Typography gutterBottom>Fiyat Aralığı</Typography>
+            <Box sx={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+              <TextField
+                label="Min Fiyat"
+                variant="outlined"
+                type="number"
+                value={priceRange[0]}
+                onChange={(event) => handleChangePriceRange(event, 0)}
               />
-            </Grid>
-          ))}
-        </Grid>
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={handleChangePage}
-          color="primary"
-          style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
-        />
-      </main>
-    </div>
+              <TextField
+                label="Max Fiyat"
+                variant="outlined"
+                type="number"
+                value={priceRange[1]}
+                onChange={(event) => handleChangePriceRange(event, 1)}
+              />
+            </Box>
+          </CardContent>
+        </Card>
+        <Box sx={{ flex: '1 1 80%' }}>
+          <Card sx={{ marginBottom: '20px' }}>
+            <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px' }}>
+              <TextField
+                label="Ürün Adı"
+                variant="outlined"
+                value={productName}
+                onChange={handleChangeProductName}
+                sx={{ flex: 1 }}
+              />
+              <FormControl variant="outlined" sx={{ minWidth: 200, flex: 1 }}>
+                <InputLabel>Sırala</InputLabel>
+                <Select value={sortBy} onChange={handleChangeSortBy} label="Sırala">
+                  <MenuItem value="alphabetical">Alfabetik (A-Z)</MenuItem>
+                  <MenuItem value="alphabetical-desc">Alfabetik (Z-A)</MenuItem>
+                  <MenuItem value="price-asc">Fiyat (Artan)</MenuItem>
+                  <MenuItem value="price-desc">Fiyat (Azalan)</MenuItem>
+                  <MenuItem value="discount-asc">İndirim Oranı (Artan)</MenuItem>
+                  <MenuItem value="discount-desc">İndirim Oranı (Azalan)</MenuItem>
+                </Select>
+              </FormControl>
+            </CardContent>
+          </Card>
+          <Grid container spacing={4}>
+            {paginatedProducts.map(product => (
+              <Grid item key={product.id} xs={12} sm={6} md={4}>
+                <ProductCard
+                  name={product.name}
+                  price={product.price}
+                  stock={product.stock}
+                  image={product.image}
+                  description={product.description}
+                  discount={product.discount}
+                />
+              </Grid>
+            ))}
+          </Grid>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handleChangePage}
+            color="primary"
+            sx={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
+          />
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
