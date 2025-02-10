@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ChangeEvent } from 'react';
-import { Grid, Typography, Pagination, Box, SelectChangeEvent, Card, CardContent, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import { Grid, Typography, Pagination, Box, Card, CardContent, FormControl, InputLabel, Select, MenuItem, TextField, SelectChangeEvent } from '@mui/material';
 import ProductCard from '@/components/ProductCard';
 import { products } from './products';
 import { filterProducts } from './filter';
@@ -23,43 +23,42 @@ const ProductsPage = () => {
 
   const handleChangeFilter = (event: SelectChangeEvent<string>) => {
     setFilter(event.target.value as string);
-    setPage(1); // Filtre değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
-  const handleChangePriceRange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChangePriceRange = (index: number, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newPriceRange = [...priceRange];
     newPriceRange[index] = Number(event.target.value);
     setPriceRange(newPriceRange);
-    setPage(1); // Filtre değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
   const handleChangeProductType = (event: SelectChangeEvent<string>) => {
     setProductType(event.target.value as string);
-    setPage(1); // Filtre değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
   const handleChangeBrand = (event: SelectChangeEvent<string>) => {
     setBrand(event.target.value as string);
-    setPage(1); // Filtre değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
   const handleChangeColor = (event: SelectChangeEvent<string>) => {
     setColor(event.target.value as string);
-    setPage(1); // Filtre değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
-  const handleChangeProductName = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProductName = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setProductName(event.target.value);
-    setPage(1); // Filtre değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
   const handleChangeSortBy = (event: SelectChangeEvent<string>) => {
     setSortBy(event.target.value as string);
-    setPage(1); // Sıralama değiştiğinde sayfayı 1'e resetleyelim
+    setPage(1);
   };
 
   const filteredProducts = filterProducts(products, filter, priceRange, productType, brand, color, productName, sortBy);
-
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedProducts = filteredProducts.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
@@ -120,14 +119,14 @@ const ProductsPage = () => {
                 variant="outlined"
                 type="number"
                 value={priceRange[0]}
-                onChange={(event) => handleChangePriceRange(event, 0)}
+                onChange={(e) => handleChangePriceRange(0, e as ChangeEvent<HTMLInputElement>)}
               />
               <TextField
                 label="Max Fiyat"
                 variant="outlined"
                 type="number"
                 value={priceRange[1]}
-                onChange={(event) => handleChangePriceRange(event, 1)}
+                onChange={(e) => handleChangePriceRange(1, e as ChangeEvent<HTMLInputElement>)}
               />
             </Box>
           </CardContent>
@@ -139,7 +138,7 @@ const ProductsPage = () => {
                 label="Ürün Adı"
                 variant="outlined"
                 value={productName}
-                onChange={handleChangeProductName}
+                onChange={(e) => handleChangeProductName(e as ChangeEvent<HTMLInputElement>)}
                 sx={{ flex: 1 }}
               />
               <FormControl variant="outlined" sx={{ minWidth: 200, flex: 1 }}>
@@ -172,7 +171,7 @@ const ProductsPage = () => {
           <Pagination
             count={totalPages}
             page={page}
-            onChange={handleChangePage}
+            onChange={(e, value) => handleChangePage(e, value)}
             color="primary"
             sx={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
           />
