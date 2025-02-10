@@ -10,7 +10,7 @@ interface FilterSortPanelProps {
   productName: string;
   sortBy: string;
   handleChangeFilter: (event: SelectChangeEvent<string>) => void;
-  handleChangePriceRange: (event: ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleChangePriceRange: (index: number, value: number) => void;
   handleChangeProductType: (event: SelectChangeEvent<string>) => void;
   handleChangeBrand: (event: SelectChangeEvent<string>) => void;
   handleChangeColor: (event: SelectChangeEvent<string>) => void;
@@ -87,14 +87,14 @@ const FilterSortPanel: React.FC<FilterSortPanelProps> = ({
               variant="outlined"
               type="number"
               value={priceRange[0]}
-              onChange={(event) => handleChangePriceRange(event, 0)}
+              onChange={(e) => handleChangePriceRange(0, Number(e.target.value))}
             />
             <TextField
               label="Max Fiyat"
               variant="outlined"
               type="number"
               value={priceRange[1]}
-              onChange={(event) => handleChangePriceRange(event, 1)}
+              onChange={(e) => handleChangePriceRange(1, Number(e.target.value))}
             />
           </Box>
         </CardContent>
